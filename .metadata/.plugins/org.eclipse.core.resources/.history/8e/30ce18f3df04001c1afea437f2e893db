@@ -1,0 +1,5 @@
+package com.carol.review;
+
+public class MemberDto {
+
+}
