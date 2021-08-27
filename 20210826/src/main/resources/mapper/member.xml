@@ -5,19 +5,19 @@
 
 <mapper namespace="member">
 	<select id="selectone" parameterType="int" resultType="com.carol.review.MemberDto">
-		select * from member2 where idx=#{idx}
+		select * from test.member2 where idx=#{idx}
 	</select>
 	<select id="select" resultType="com.carol.review.MemberDto">
-		select * from member2
+		select * from test.member2
 	</select>
 	<insert id="insert" parameterType="com.carol.review.MemberDto">
-		INSERT INTO MEMBER2
+		INSERT INTO test.MEMBER2
 		(ID, PW, AGE, GENDER)
 		VALUES
 		(#{id}, #{pw}, #{age}, #{gender})
 	</insert>
 	<update id="update" parameterType="com.carol.review.MemberDto">
-		update member2
+		update test.member2
 		set id=#{id}, pw=#{pw}, age=#{age}, gender=#{gender}
 		where idx=#{idx}
 	</update>	

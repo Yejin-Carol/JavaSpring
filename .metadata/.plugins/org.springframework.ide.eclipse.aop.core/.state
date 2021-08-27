@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
-<aop-project name="20210811"/>
-<aop-project name="20210817"/>
-<aop-project name="20210823"/>
-<aop-project name="20210824"/>
+<aop-project name="felizvida"/>
+<aop-project name="20210826_v"/>
 <aop-project name="lec11Pjt001"/>
 </aop-reference-model>
