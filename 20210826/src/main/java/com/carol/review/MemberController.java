@@ -70,6 +70,11 @@ public class MemberController {
 		return "redirect:memberlist";	
 	}
 	
-	
+	@RequestMapping(value="memberdelete")
+	public String memberdelete(int idx) {
+		System.out.println("delete =======\n"+idx);
+		sqlsession.delete("member.delete",idx);
+		return "redirect:memberlist";
+	}
 	
 }

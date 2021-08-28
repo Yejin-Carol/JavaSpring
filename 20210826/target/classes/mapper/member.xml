@@ -20,5 +20,8 @@
 		update test.member2
 		set id=#{id}, pw=#{pw}, age=#{age}, gender=#{gender}
 		where idx=#{idx}
-	</update>	
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from test.member2 where idx = #{idx}
+	</delete>	
 </mapper>
