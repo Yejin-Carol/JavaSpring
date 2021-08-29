@@ -34,6 +34,8 @@
 						<div>
 							<input type="submit" value="로그인">
 						</div>
+						<div style="margin-bottom: 30px;"><a href="/20210828/memberlist">memberlist</a></div>
+						<div style="margin-bottom: 30px;"><a href="/20210828/memberhome">회원정보</a></div>
 					</div>
 				</div>
 			</div>
