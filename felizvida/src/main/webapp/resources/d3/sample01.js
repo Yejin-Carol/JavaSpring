@@ -10,6 +10,15 @@ d3.select("#myGraph")
   .attr("y",function(d,i){
       return i*45+10;
   })
-  .attr("width", function(ele,i){ return ele;} )
+  .attr("width", function(ele,i){ return ele;})
   .attr("height",30)
  
+d3.select("#testBtn")
+  .on("click",function(){
+    d3.selectAll("rect")
+    	.transition()
+    	.duration(5000)
+    	.attr("width", function(){
+        	return (Math.random()*300)+1;
+    })
+});
