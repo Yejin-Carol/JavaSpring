@@ -16,19 +16,25 @@ svg {
 	border: 5px solid black;
 	margin-left: 20px;
 }
+
 .bar {
 	fill: red;
+}
+
+.pie {
+	fill: orange;
+	stroke: black;
 }
 </style>
 </head>
 <body>
 	<form action="logincheck" method="post">
-		<div>${sessionScope.dto.id}님 환영 합니다.</div>
+		<div>${sessionScope.dto.id}님환영 합니다.</div>
 		<div id="root">
 			<div class="container">
-				<div class="left_panel"	style="">
+				<div class="left_panel" style="">
 					<div>
-						<h1>데이터에 따른 그래프 표시</h1>
+						<h1>회원 가입한 나이</h1>
 						<svg id="myGraph1"></svg>
 					</div>
 					<div class="leftbtndiv">
@@ -37,18 +43,18 @@ svg {
 					<!-- 					<script src="/felizvida/resources/d3/sample01.js"></script> -->
 					<script src="/felizvida/resources/d3/barjson.js"></script>
 				</div>
-					<div class="right_panel">
-						<div>
-							<h1>데이터에 따른 그래프 표시</h1>
-							<svg id="myGraph2"></svg>
-						</div>
-						<div class="rightbtndiv">
+				<div class="right_panel">
+					<div>
+						<h1>데이터에 따른 그래프 표시</h1>
+						<svg id="myGraph2"></svg>
+					</div>
+					<div class="rightbtndiv">
 						<button type="button" id="pieBtn">Update</button>
 					</div>
 					<script src="/felizvida/resources/d3/pie.js"></script>
-					</div>
 				</div>
 			</div>
+		</div>
 	</form>
 </body>
 </html>

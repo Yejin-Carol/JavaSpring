@@ -31,6 +31,4 @@ d3.select("#barBtn")
     	.attr("width", function(){
         	return (Math.random()*300)+1;
     })
-});/**
- * 
- */
+});
