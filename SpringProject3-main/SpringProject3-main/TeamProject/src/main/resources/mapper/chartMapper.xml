@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chart">
+	<select id="select_june"
+		resultType="com.t3.musicchart.dto.ChartDto">
+		select * from test.chart_june;
+	</select>
+
+	<select id="select_july"
+		resultType="com.t3.musicchart.dto.ChartDto">
+		select * from test.chart_july;
+	</select>
+
+	<select id="select_august"
+		resultType="com.t3.musicchart.dto.ChartDto">
+		select * from test.chart_august;
+	</select>
+	
+	<select id="select_september"
+		resultType="com.t3.musicchart.dto.ChartDto">
+		select * from test.chart_september;
+	</select>
+	
+	<select id="select_piechart"
+		resultType="com.t3.musicchart.dto.ChartDto">
+		select * from test.chart_june order by idx limit 5;
+		<!-- select * from test.chart_july order by idx limit 5;
+		select * from test.chart_august order by idx limit 5; -->
+		</select>
+</mapper>
