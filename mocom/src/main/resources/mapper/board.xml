@@ -5,21 +5,21 @@
 <mapper namespace="board">
 	<select id="selectlist" 
 			resultType="com.mh.mocom.dto.BoardDto">
-		select * from board
+		select * from test.board
 	</select>
 	<insert id="insert" parameterType="com.mh.mocom.dto.BoardDto">
-		INSERT INTO board 
+		INSERT INTO test.board 
 		(title, name, content, wdate, hits) 
 		VALUES 
 		(#{title}, #{name}, #{content}, #{wdate}, #{hits})
 	</insert>
 	<update id="update" parameterType="com.mh.mocom.dto.MemberDto">
-		update member
+		update test.member
 		set id=#{id}, pw=#{pw}, age=#{age}, gender=#{gender}
 		where idx=#{idx} 
 	</update>
 	<delete id="delete" parameterType="int">
-		delete from member where idx = #{idx}
+		delete from test.member where idx = #{idx}
 	</delete>
 </mapper>
 
