@@ -1,0 +1,72 @@
+package com.carol.jpa02.controller;
+import com.carol.jpa02.model.Board;
+import com.carol.jpa02.repository.BoardRepository;
+import com.carol.jpa02.validator.BoardValidator;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+
+@Controller
+@RequestMapping("/board")
+public class BoardController {
+
+    @Autowired
+    BoardRepository boardRepository;
+
+    @Autowired
+    BoardValidator boardValidator;
+
+    @GetMapping("/list")
+    public String board(Model model) {
+        List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        model.addAttribute("list", list);
+        return "board/list";
+    }
+
+    @GetMapping("/view")
+    public String view(long id,Model model) {
+        Board board = boardRepository.findById(id).orElse(null);
+        model.addAttribute("board",board);
+        return "board/view";
+    }
+
+    @GetMapping("/form")
+    public String form(Model model, @RequestParam(required = false, defaultValue = "0") long id) {
+        Board board = boardRepository.findById(id).orElse(new Board());
+        model.addAttribute("board", board);
+        return "board/form";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam(required = false, defaultValue = "0") long id) {
+        boardRepository.deleteById(id);
+        return "redirect:/board/list";
+    }
+
+    @PostMapping("/form")
+    public String form(Model model, @Valid Board board, BindingResult bindingResult) {
+        model.addAttribute("board",board);
+        boardValidator.validate(board,bindingResult);
+        if( bindingResult.hasErrors()){
+            return "board/form";
+        }
+        long nano = System.currentTimeMillis();
+        String curDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nano);
+        board.setDate(curDate);
+//        board.setId(1l);
+        boardRepository.save(board);
+        return "redirect:/board/list";
+    }
+}

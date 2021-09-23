@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- nav에서 변수 파라미터로 값을 던짐 -->
+<head th:replace="common/common :: head('home')">
+</head>
+
+<body>
+
+    <nav th:replace="common/common :: nav('home')">
+    </nav>
+
+    <main class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>포트폴리오</h1>
+            <p class="lead">
+                안녕하세요 spring boot , jpa, thymeleaf 사용해서 만든 홈페이지입니다.
+            </p>
+            <a class="btn btn-lg btn-primary" 
+                href="/docs/5.1/components/navbar/" 
+                role="button">프로필 보기</a>
+        </div>
+    </main>
+
+
+</body>
+
+</html>
