@@ -45,6 +45,33 @@
             </tr>
             </tbody>
         </table>
+        <nav class="d-flex justify-content-center" aria-label="page navigation">
+            <!--d-flex justify-content: center; 대시 myflexcenter-->
+            <ul class="pagination">
+              <li class="page-item"
+                  th:classappend="${curpage==1} ?'disabled'">
+                  <a class="page=link"
+                     th:href="@{/board/list(page=${curpage-2))}"
+                     href="#"
+                     tabindex="-1">Previous</a>
+              </li>
+                <li class="page-item"
+                    th:each="i : ${#numbers.sequence(startpage,endpage)}"
+                    th:classappend="${curpage==i} ?'active'">
+                    <a class="page-link"
+                       th:text="${i}"
+                       th:href="@{/board/list(page=${i-1})}"
+                        href="#">
+                    </a>
+                </li>
+                <li class="page-item"
+                    th:classappend=""$(curpage="=endpage} ?'disabled'">
+                    <a class="page-link"
+                       th:href="@{/board/list(page=${curpage})}"
+                       href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <div class="container d-flex justify-content-end">
@@ -52,9 +79,6 @@
     </div>
 
     <footer th:replace="common/common :: footer">
-        <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-        </script>
     </footer>
 </body>
 

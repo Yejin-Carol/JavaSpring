@@ -4,6 +4,8 @@ import com.carol.jpa02.repository.BoardRepository;
 import com.carol.jpa02.validator.BoardValidator;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +31,31 @@ public class BoardController {
     BoardValidator boardValidator;
 
     @GetMapping("/list")
-    public String board(Model model) {
-        List<Board> list = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    public String board(Model model,
+                        @RequestParam(required =false, defaultValue= "0")int page,
+                        @RequestParam(required = false,defaultValue = "")String searchtxt) {
+        int size = 5;
+        Page<Board> list = boardRepository.findByTitleContainingOrContentContaining(
+                searchtxt,
+                searchtxt,
+                PageRequest.of(page, size,
+                    Sort.by(Sort.Direction.DESC, "id")
+                    //select * from (findAll) order by desc limit 0,5; (SQL)
+                )//1페이지 F8 한줄 진행 (디버깅)
+        );
+// 페이지 개수
+        //int endpage = 0;
+        // 6 / 5 = 1, 6 % 5 =1 나머지가 0보다 큰 경우
+        //endpage = list.getSize()/size;
+        /*System.out.println(list.getSize());
+        System.out.println(list.getTotalPages());
+        System.out.println(list.getTotalElements());
+*/
+        //System.out.println("curpageNumber"+list.getPageable().getPageNumber());
+        model.addAttribute("startpage",1);
+        //th:classappend -> active
+        model.addAttribute("curpage",(list.getPageable().getPageNumber()+1));
+        model.addAttribute("endpage", list.getTotalPages());
         model.addAttribute("list", list);
         return "board/list";
     }

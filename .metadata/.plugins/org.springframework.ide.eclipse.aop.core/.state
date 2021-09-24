@@ -3,6 +3,6 @@
 <aop-project name="jpasample-master"/>
 <aop-project name="felizvida"/>
 <aop-project name="jpa-boot-01"/>
-<aop-project name="musicchart"/>
 <aop-project name="mocom"/>
+<aop-project name="musicchart"/>
 </aop-reference-model>
