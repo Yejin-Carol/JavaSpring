@@ -26,8 +26,10 @@
         <div id="content" th:text="${board.content}"></div>
     </div>
     <a th:href="@{/board/list}" class="btn btn-primary">목록</a>
-    <div th:href="@{/board/delete}" class="btn btn-primary"
-        th:onclick="doDelete(${board.id});">삭제</div>
+    <div id="delete" class="btn btn-primary">삭제</div>
+
+   <!-- <div th:href="@{/board/delete}" class="btn btn-primary"
+        th:onclick="doDelete(${board.id});">삭제</div> -->
     <a th:href="@{/board/form(id=${board.id})}" class="btn btn-primary">수정</a>
 </div>
 
@@ -45,7 +47,12 @@
                 location.href='/board/delete?id=[[${board.id}]]';
             }
         }*/
-        $('#delete').on('click',function(){});
+         $('#delete').on('click',function(){
+            var result = confirm('삭제하시겠습니까?');
+            if(result == true){
+                location.href='/board/delete?id=[[${board.id}]]';
+            }
+        });
     </script>
 
     </body>

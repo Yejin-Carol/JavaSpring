@@ -34,7 +34,7 @@
     </style>
 
     <!-- Custom styles for this template -->
-    <link href="" th:href="@{/starter-template.css}" rel="stylesheet">
+    <link href="" th:href="@{/starter/starter-template.css}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -53,13 +53,16 @@
                     <a class="nav-link" th:classappend="${menu} == 'home'? 'active'" aria-current="page" href="#" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:classappend="${menu} == 'member'? 'active'" href="#" th:href="@{/members/signup}">회원가입</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:classappend="${menu} == 'board'? 'active'" href="#" th:href="@{/board/list}">게시판</a>
                 </li>
             </ul>
-            <form class="@{/board/list}" method="get" class="d-flex">
+            <form th:action="@{/board/list}" method="get" class="d-flex">
                 <input class="form-control me-2" type="search"
                        placeholder="Search" aria-label="Search"
-                        name="searchtxt"
+                       name="searchtxt"
                        th:value="${param.searchtxt}">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
