@@ -28,8 +28,8 @@
     <a th:href="@{/board/list}" class="btn btn-primary">목록</a>
     <div id="delete" class="btn btn-primary">삭제</div>
 
-   <!-- <div th:href="@{/board/delete}" class="btn btn-primary"
-        th:onclick="doDelete(${board.id});">삭제</div> -->
+    <!-- <div th:href="@{/board/delete}" class="btn btn-primary"
+         th:onclick="doDelete(${board.id});">삭제</div> -->
     <a th:href="@{/board/form(id=${board.id})}" class="btn btn-primary">수정</a>
 </div>
 
@@ -39,7 +39,7 @@
             integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
     </script>
 </footer>
-    <script>
+<script>
        /*function doDelete(id){
             alert('asd');
             var result = confirm('삭제할까요?');
@@ -55,6 +55,6 @@
         });
     </script>
 
-    </body>
+</body>
 
 </html>
