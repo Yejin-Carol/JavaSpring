@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
-
 
 @Entity
 @Data
@@ -26,9 +26,12 @@ public class Member {
     private String password;
 
     private String address;
+
+    @Column(unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
 
 }

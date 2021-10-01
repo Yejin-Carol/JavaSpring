@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Data //lombok
@@ -24,4 +25,8 @@ public class Board {
     private String title;
     private String content;
     private String date;
+
+    @OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="board_id")
+    private List<BoardTail> boardTailList;
 }

@@ -1,6 +1,10 @@
 body {
   min-height: 75rem;
 }
+.container{
+min-height: 30.5rem;
+}
+
 a{
     text-decoration : none;
 }

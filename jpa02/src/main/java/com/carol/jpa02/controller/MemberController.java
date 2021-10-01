@@ -44,6 +44,7 @@ public class MemberController {
         member.setPassword(new BCryptPasswordEncoder().encode(member.getPassword()));
         member.setRole(Role.USER);
         memberService.createMember(member);
-        return "members/memberSignForm";
+        return "redirect:/";
     }
+
 }
