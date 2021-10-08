@@ -1,5 +1,6 @@
 package com.carol.jpa02.controller;
 import com.carol.jpa02.model.Board;
+import com.carol.jpa02.model.BoardTail;
 import com.carol.jpa02.repository.BoardRepository;
 import com.carol.jpa02.validator.BoardValidator;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -81,14 +83,20 @@ left outer join board_tail b on a.id = b.board_id;
         return "board/form";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/delete")//211008 댓글달린 게시글 삭제 처리 추가!
     public String delete(@RequestParam(required = false, defaultValue = "0") long id) {
-        boardRepository.deleteById(id);
+        System.out.println("id = " + id);
+        Board board= boardRepository.findById(id).orElse(new Board());
+        board.getBoardTailList().clear();
+        boardRepository.delete(board);
         return "redirect:/board/list";
     }
 
     @PostMapping("/form")
-    public String form(Model model, @Valid Board board, BindingResult bindingResult) {
+    public String form(Model model, @Valid Board board, BindingResult bindingResult, Authentication authentication) {
+
+        Board newboard = new Board();
+        board.setName(authentication.getName());
         model.addAttribute("board",board);
         boardValidator.validate(board,bindingResult);
         if( bindingResult.hasErrors()){
@@ -97,8 +105,19 @@ left outer join board_tail b on a.id = b.board_id;
         long nano = System.currentTimeMillis();
         String curDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nano);
         board.setDate(curDate);
-//        board.setId(1l);
-        boardRepository.save(board);
+        System.out.println("board.getId = "+board.getId());
+        if(board.getId() !=0){
+            newboard = boardRepository.findById(board.getId()).orElse(board);
+            newboard.setTitle(board.getTitle());
+            newboard.setContent(board.getContent());
+            newboard.setName(board.getName());
+            newboard.setContent(board.getContent());
+            newboard.setId(board.getId());
+            boardRepository.save(newboard);//save 안적어서 내용 수정 후 변경 안됐음
+        }
+        else {
+            boardRepository.save(board);
+        }
         return "redirect:/board/list";
     }
 }

@@ -15,6 +15,7 @@ public class Board {
 
     public Board(){}
     @Id
+    @Column(name="board_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -25,8 +26,9 @@ public class Board {
     private String title;
     private String content;
     private String date;
+    /*Jpa @OneyToMany, @ManyToOne*/
 
-    @OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="board_id")
+    @OneToMany(mappedBy = "board",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    //@JoinColumn(name="board_id")
     private List<BoardTail> boardTailList;
 }
