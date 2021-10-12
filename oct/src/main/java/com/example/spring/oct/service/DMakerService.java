@@ -1,14 +1,18 @@
 package com.example.spring.oct.service;
 
+import com.example.spring.oct.dto.CreateDeveloper;
 import com.example.spring.oct.entity.Developer;
+import com.example.spring.oct.exception.DMakerException;
 import com.example.spring.oct.repository.DeveloperRepository;
 import com.example.spring.oct.type.DeveloperLevel;
-import com.example.spring.oct.type.DeveloperSkillType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import static com.example.spring.oct.exception.DMakerErrorCode.DUPLICATED_MEMBER_ID;
+import static com.example.spring.oct.exception.DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED;
 
 
 //서비스 레이어, 비즈니스 로직, @Required.. 예전 @Autowired나 @Inject.. 서비스 단독 하는 문제; 그 다음 생성자
@@ -18,20 +22,48 @@ import javax.persistence.EntityManager;
 @RequiredArgsConstructor
 public class DMakerService {
     private final DeveloperRepository developerRepository;
+    private final EntityManager em;
 
     //ACID(Atomicity, Consistency, Isolation, Durability)
     @Transactional
-    public void createDeveloper() {
+    public CreateDeveloper.Response createDeveloper(CreateDeveloper.Request request) {
+        validateCreateDeveloperRequest(request);
 
         //business logic starts
         Developer developer = Developer.builder()
-                .developerLevel(DeveloperLevel.JUNIOR)
-                .developerSkillType(DeveloperSkillType.FRONT_END)
-                .experienceYears(2)
-                .name("Olaf")
-                .age(5)
+                .developerLevel(request.getDeveloperLevel())
+                .developerSkillType(request.getDeveloperSkillType())
+                .experienceYears(request.getExperienceYears())
+                .memberId(request.getMemberId())
+                .name(request.getName())
+                .age(request.getAge())
                 .build();//마지막에 꼭 build해야함. 중간에 하면 중간에 끝남.
-
         developerRepository.save(developer);//save 통해 영속화 (DB 저장), business logic ends
+        return CreateDeveloper.Response.fromEntity(developer);
+    }
+
+    private void validateCreateDeveloperRequest(CreateDeveloper.Request request) {
+    //business validation
+        DeveloperLevel developerLevel = request.getDeveloperLevel();
+        Integer experienceYears = request.getExperienceYears();
+        if(developerLevel == DeveloperLevel.SENIOR
+                && experienceYears <10) {
+            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);//import static
+        }
+        if(developerLevel == DeveloperLevel.JUNGNIOR
+               && (experienceYears <4 || experienceYears > 10)) {
+            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
+        }
+        if (developerLevel == DeveloperLevel.JUNIOR && experienceYears > 4) {
+            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
+        }
+
+//        Optional<Developer> developer = developerRepository.findByMemberId(request.getMemberId());
+//        if(developer.isPresent())
+//            throw new DMakerException(DUPLICATED_MEMBER_ID);
+        developerRepository.findByMemberId(request.getMemberId())
+                .ifPresent((developer -> {
+                    throw new DMakerException(DUPLICATED_MEMBER_ID);
+                }));
     }
 }
