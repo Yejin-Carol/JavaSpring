@@ -1,6 +1,8 @@
 package com.example.spring.oct.service;
 
 import com.example.spring.oct.dto.CreateDeveloper;
+import com.example.spring.oct.dto.DeveloperDetailDto;
+import com.example.spring.oct.dto.DeveloperDto;
 import com.example.spring.oct.entity.Developer;
 import com.example.spring.oct.exception.DMakerException;
 import com.example.spring.oct.repository.DeveloperRepository;
@@ -11,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static com.example.spring.oct.exception.DMakerErrorCode.DUPLICATED_MEMBER_ID;
-import static com.example.spring.oct.exception.DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.example.spring.oct.exception.DMakerErrorCode.*;
 
 
 //서비스 레이어, 비즈니스 로직, @Required.. 예전 @Autowired나 @Inject.. 서비스 단독 하는 문제; 그 다음 생성자
@@ -65,5 +69,18 @@ public class DMakerService {
                 .ifPresent((developer -> {
                     throw new DMakerException(DUPLICATED_MEMBER_ID);
                 }));
+    }
+
+    public List<DeveloperDto> getAllDevelopers() {
+        return developerRepository.findAll()
+                .stream().map(DeveloperDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public DeveloperDetailDto getDeveloperDetail(String memberId) {
+        return developerRepository.findByMemberId(memberId)
+                .map(DeveloperDetailDto::fromEntity)
+                .orElseThrow(()-> new DMakerException(NO_DEVELOPER));
+
     }
 }
