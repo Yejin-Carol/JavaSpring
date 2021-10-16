@@ -1,5 +1,6 @@
 package com.example.spring.oct.entity;
 
+import code.StatusCode;
 import com.example.spring.oct.type.DeveloperLevel;
 import com.example.spring.oct.type.DeveloperSkillType;
 import lombok.*;
@@ -36,6 +37,8 @@ public class Developer {
     private String name;
     private Integer age;
 
+    @Enumerated(EnumType.STRING)
+    private StatusCode statusCode;
     //App에 EnabledJpaAuditing 추가
     @CreatedDate
     private LocalDateTime createdAt;
