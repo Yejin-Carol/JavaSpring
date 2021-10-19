@@ -1,10 +1,7 @@
 package com.example.spring.oct.service;
 
 import code.StatusCode;
-import com.example.spring.oct.dto.CreateDeveloper;
-import com.example.spring.oct.dto.DeveloperDetailDto;
-import com.example.spring.oct.dto.DeveloperDto;
-import com.example.spring.oct.dto.EditDeveloper;
+import com.example.spring.oct.dto.*;
 import com.example.spring.oct.entity.Developer;
 import com.example.spring.oct.entity.RetiredDeveloper;
 import com.example.spring.oct.exception.DMakerException;
@@ -12,6 +9,7 @@ import com.example.spring.oct.repository.DeveloperRepository;
 import com.example.spring.oct.repository.RetiredDeveloperRepository;
 import com.example.spring.oct.type.DeveloperLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +23,7 @@ import static com.example.spring.oct.exception.DMakerErrorCode.*;
 
 //서비스 레이어, 비즈니스 로직, @Required.. 예전 @Autowired나 @Inject.. 서비스 단독 하는 문제; 그 다음 생성자
 //생성자도 repository 여러개면 또 불편하므로 private final 기본 생성자 자동으로 만들어줌.
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DMakerService {
@@ -56,14 +54,12 @@ public class DMakerService {
                 request.getDeveloperLevel(),
                 request.getExperienceYears()
                 );
-
-//        Optional<Developer> developer = developerRepository.findByMemberId(request.getMemberId());
-//        if(developer.isPresent())
-//            throw new DMakerException(DUPLICATED_MEMBER_ID);
+       //try{//외부 API 사용시 try-catch 이용
         developerRepository.findByMemberId(request.getMemberId())
                 .ifPresent((developer -> {
                     throw new DMakerException(DUPLICATED_MEMBER_ID);
                 }));
+
     }
 
     public List<DeveloperDto> getAllEmployedDevelopers() {
@@ -76,6 +72,7 @@ public class DMakerService {
         return developerRepository.findByMemberId(memberId)
                 .map(DeveloperDetailDto::fromEntity)
                 .orElseThrow(()-> new DMakerException(NO_DEVELOPER));
+
 
     }
 
@@ -101,7 +98,6 @@ public class DMakerService {
         );
 
     }
-
     private void validateDeveloperLevel(DeveloperLevel developerLevel, Integer experienceYears) {
         if (developerLevel == DeveloperLevel.SENIOR
                 && experienceYears < 10) {

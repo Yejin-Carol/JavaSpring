@@ -1,6 +1,7 @@
 package com.example.spring.oct.dto;
 
 import com.example.spring.oct.entity.Developer;
+import com.example.spring.oct.exception.DMakerErrorCode;
 import com.example.spring.oct.type.DeveloperLevel;
 import com.example.spring.oct.type.DeveloperSkillType;
 import lombok.*;
@@ -50,6 +51,9 @@ public class CreateDeveloper {
         private DeveloperSkillType developerSkillType;
         private Integer experienceYears;
         private String memberId;
+
+        private DMakerErrorCode errorCode;
+        private String errorMessage;
 
         public static Response fromEntity(Developer developer) {
             return Response.builder()
