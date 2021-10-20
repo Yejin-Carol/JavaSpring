@@ -1,6 +1,6 @@
 package com.example.spring.oct.service;
 
-import code.StatusCode;
+import com.example.spring.oct.code.StatusCode;
 import com.example.spring.oct.dto.*;
 import com.example.spring.oct.entity.Developer;
 import com.example.spring.oct.entity.RetiredDeveloper;
@@ -12,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +30,7 @@ public class DMakerService {
     //ACID(Atomicity, Consistency, Isolation, Durability)
     @Transactional
     public CreateDeveloper.Response createDeveloper(CreateDeveloper.Request request) {
-        validateCreateDeveloperRequest(request);
+        validateCreateDeveloperRequest(request); //validation과 save 동작여부 검증 가능
 
         //business logic starts
         Developer developer = Developer.builder()

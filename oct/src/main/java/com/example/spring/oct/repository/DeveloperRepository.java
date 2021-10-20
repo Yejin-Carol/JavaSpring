@@ -1,6 +1,6 @@
 package com.example.spring.oct.repository;
 
-import code.StatusCode;
+import com.example.spring.oct.code.StatusCode;
 import com.example.spring.oct.entity.Developer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

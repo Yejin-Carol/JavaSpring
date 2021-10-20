@@ -1,6 +1,6 @@
 package com.example.spring.oct.entity;
 
-import code.StatusCode;
+import com.example.spring.oct.code.StatusCode;
 import com.example.spring.oct.type.DeveloperLevel;
 import com.example.spring.oct.type.DeveloperSkillType;
 import lombok.*;

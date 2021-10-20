@@ -1,12 +1,11 @@
 package com.example.spring.oct.dto;
 
-import code.StatusCode;
+import com.example.spring.oct.code.StatusCode;
 import com.example.spring.oct.entity.Developer;
 import com.example.spring.oct.type.DeveloperLevel;
 import com.example.spring.oct.type.DeveloperSkillType;
 import lombok.*;
 
-import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
