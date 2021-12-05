@@ -13,3 +13,4 @@
   - Week2 (14th of Nov): Mission 03 ~ 05 are about mapping Request Path in BoardController. I was able to know better how to map a spring controller by using different types of path, http method, Params mapping.
   - Week3 (21st of Nov): Mission 06 ~ 12 I struggled to figure out how ajax works in JSP file. And I was guided to study more on jQuery with some contents from 생활코딩.
   - Week4 (28th of Nov): Mission 13 ~ 17. I was able to finish the presentation about the ajax. And I found out that the problem was made from the bad dependency injection.
+  - Week5 (5th of Dec): Mission 18 ~ 24. Uploading file and downloading .zip by using ResponseEntity<byte>. Review of RequestMapping with different formats including @DateTimeFormat.

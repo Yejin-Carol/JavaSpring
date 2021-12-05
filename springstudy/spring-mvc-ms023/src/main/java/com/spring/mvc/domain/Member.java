@@ -9,9 +9,10 @@ public class Member {
 	private String userId;
 	private String password;
 	
-	@DateTimeFormat(pattern = "yyMMdd")
-	private Date dateOfBirth;
-
+	//DateTimeFormat
+	@DateTimeFormat(pattern = "yyyyMMdd")
+	private String dateOfBirth;
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -27,12 +28,13 @@ public class Member {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -41,7 +43,7 @@ public class Member {
 		return "Member [userId=" + userId + ", password=" + password + ", dateOfBirth=" + dateOfBirth + "]";
 	}
 
-
 	
+		
 
 }

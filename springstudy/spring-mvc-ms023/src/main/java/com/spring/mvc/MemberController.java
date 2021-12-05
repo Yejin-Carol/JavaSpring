@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,17 +43,10 @@ public class MemberController {
 		public String register02(Member member) {
 			logger.info("register02");
 			logger.info("Member : " + member.toString());
-			return "success";
-	}
-		// mission 25 폼 방식 요청 처리
-		@RequestMapping(value = "/register03", method = RequestMethod.POST)
-		public String register03(int uid, Member member) {
-			logger.info("method3");
-			logger.info("uid : " + uid);
-			logger.info("Member : " + member.toString());
 			
 			return "success";
 	}
+		
 		
 		
 
